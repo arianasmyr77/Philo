@@ -6,12 +6,16 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/12 20:17:30 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/12 21:14:55 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #ifndef PHILO_H
 # define PHILO_H
+
+# include <sys/time.h>
+# include <unistd.h>
+# include <stdio.h>
 
 typedef struct s_data
 {
