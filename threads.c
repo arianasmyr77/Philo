@@ -6,12 +6,21 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:42:33 by arforouz          #+#    #+#             */
-/*   Updated: 2024/05/30 16:15:51 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/13 18:23:01 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    handle_one_philo;
+void    handle_one_philo
+{
+    if(philo_num == 1)
+    {
+    
+    }
+}
 
 s_philo init_data()
+{
+
+}
