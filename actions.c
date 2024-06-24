@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:42:06 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/24 13:11:32 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/24 13:32:43 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,7 +29,7 @@ void time_to_eat(t_philo *philo)
     pthread_mutex_lock(&philo->r_fork);
     print_action("philo has taken a fork");
     time = get_current_time() - philo->start_time;
-    print_action(philo is eating);
+    print_action(philo->philo_id, EAT);
     pthread_mutex_unlock(&philo->l_fork);
     pthread_mutex_unlock(&philo->r_fork);
     time = get_current_time() - philo->start_time;
@@ -39,3 +39,24 @@ void time_to_eat(t_philo *philo)
     print_action("philo is thinking");
 }
 
+// void *philosopher(void *arg) {
+//     t_philo *philo = (t_philo *)arg;
+
+//     while (!philo->dead_flag) {
+//         print_action(philo->philo_id, THINK);
+//         usleep(1000);
+
+//         print_action(philo->philo_id, FORK);
+//         usleep(1000);
+
+//         print_action(philo->philo_id, EAT);
+//         usleep(2000);
+
+//         print_action(philo->philo_id, SLEEP);
+//         usleep(1000);
+//     }
+
+//     print_action(philo->philo_id, DIED);
+
+//     return NULL;
+// }
