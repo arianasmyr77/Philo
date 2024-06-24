@@ -22,6 +22,11 @@ long     get_current_time(void)
     return((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
+void print_action()
+{
+    
+}
+
 int main() {
     // Get and print the current time in milliseconds
     long long current_time_ms = get_current_time();

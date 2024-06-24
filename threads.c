@@ -12,15 +12,15 @@
 
 #include "philo.h"
 
-void    handle_one_philo
+void    handle_one_philo()
 {
-    if(philo_num == 1)
-    {
-    
-    }
+    pthread_mutex_lock(&philo[r_fork]);
+    print_action("philo has taken a fork");
+    print_action("philois eating");
+    print_action
 }
 
 s_philo init_data()
 {
-
+    philo[i] = 
 }

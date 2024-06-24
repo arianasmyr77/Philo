@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/13 18:55:37 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/24 12:58:48 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -19,13 +19,19 @@
 #include <stdlib.h>
 #include <pthread.h>
 
-# define EAT 
-# define SLEEP 
-# define THINK 
+# define FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
 
 typedef struct s_data
 {
     int     philo_num;
+    long start_time;
+    int time_to_die;
+    int time_to_eat;
+    int time_to_sleep;
+    int time_to_think;
     long long    time_t tv_sec;  :-/??
     
 } t_data;
@@ -36,11 +42,6 @@ typedef struct s_philo
     int id;
     int l_fork;
     int r_fork;
-    long start_time;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int time_to_think;
     int philo_id;
     int dead_flag;
 
