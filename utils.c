@@ -6,13 +6,11 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:45:27 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:05 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:55:52 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
-# include <sys/time.h>
-# include <unistd.h>
-# include <stdio.h>
+# include "philo.h"
 
 long     get_current_time(void)
 {
@@ -22,9 +20,21 @@ long     get_current_time(void)
     return((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
 }
 
-void print_action(int philo_id, const char *action)
+void ft_usleep(long time_in_ms)
 {
-    printf("◦ %ld %d %s\n", get_current_time(), philo_id, action);
+    long start_time = get_current_time();
+    long end_time = start_time + time_in_ms;
+
+    while (get_current_time() < end_time)
+        usleep(100); // Sleep for a short duration to prevent busy-waiting
+}
+
+
+void print_action(char *str, t_philo *philo)
+{
+    long time;
+
+    time = get_current_time() - philo->data->start_time;
 }
 int main() {
     // Get and print the current time in milliseconds

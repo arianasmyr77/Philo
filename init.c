@@ -6,17 +6,13 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:55:29 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/24 13:22:04 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:17:39 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void *init_philos(void *argv)
-{
-    int r_fork = philo_id;
-    
-}
+void    init_philos()
 
 void    creat_philo(t_data *philo)
 {

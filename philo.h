@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/24 12:58:48 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/25 11:36:42 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -32,7 +32,6 @@ typedef struct s_data
     int time_to_eat;
     int time_to_sleep;
     int time_to_think;
-    long long    time_t tv_sec;  :-/??
     
 } t_data;
 
