@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:45:27 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 21:27:21 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:53:24 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,29 @@ long     get_current_time(void)
     
     gettimeofday(&current_time, NULL);
     return((current_time.tv_sec * 1000) + (current_time.tv_usec / 1000));
+}
+
+int	ft_atoi(const char *str)
+{
+	int	is_negative;
+	int	ret;
+
+	ret = 0;
+	is_negative = 1;
+	while (*str == ' ' || (*str <= 13 && *str >= 9))
+		str++;
+	if (*str == '+' || *str == '-')
+	{
+		if (*str == '-')
+			is_negative = -1;
+		str++;
+	}
+	while (*str <= '9' && *str >= '0')
+	{
+		ret = (ret * 10) + (*str - '0');
+		str++;
+	}
+	return (ret * is_negative);
 }
 
 void ft_usleep(long time_in_ms)

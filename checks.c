@@ -1,25 +1,25 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        :::      ::::::::   */
-/*   threads.c                                          :+:      :+:    :+:   */
+/*   checks.c                                           :+:      :+:    :+:   */
 /*                                                    +:+ +:+         +:+     */
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
-/*   Created: 2024/05/16 19:42:33 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 22:27:24 by arforouz         ###   ########.fr       */
+/*   Created: 2024/06/26 21:54:16 by arforouz          #+#    #+#             */
+/*   Updated: 2024/06/26 22:32:35 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    handle_one_philo()
+void    check_arguments(t)
 {
-    t_philo philo;
-    phio.id = 0;
-    print_action(&philo[0], Take_FORK);
-}
-
-s_philo init_data()
-{
-    philo[i] = 
+    if (data->philo_num <= 0)
+        return (1);
+    else if (data->time_to_eat <= 0)
+        return (1);
+    else if (data->time_to_sleep <= 0)
+        return (1);
+    else if (data->time_to_think <= 0)
+        return (1) ;
 }

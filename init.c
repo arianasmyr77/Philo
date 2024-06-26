@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:55:29 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 20:45:22 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/26 22:27:53 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,8 +15,6 @@
 void    init_philos(t_data *data)
 {
     int i;
-    //pthread_t threads[NUM_PHILOSOPHERS];
-    //t_philo philois[NUM_PHILOSOPHERS];
 
     data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
     data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_num);
