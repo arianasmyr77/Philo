@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:45:27 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/25 11:55:52 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:27:21 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -29,16 +29,13 @@ void ft_usleep(long time_in_ms)
         usleep(100); // Sleep for a short duration to prevent busy-waiting
 }
 
-
-void print_action(char *str, t_philo *philo)
-{
-    long time;
-
-    time = get_current_time() - philo->data->start_time;
+void print_action(t_philo *philo, const char *action) {
+    t_data *data = philo->data;
+    long time 
+    
+    time = get_current_time() - data->start_time;
+    pthread_mutex_lock(&data->message);
+    printf("[%ld ms] Philosopher %d %s\n", current_time, philo->id, action);
+    pthread_mutex_unlock(&data->message);
 }
-int main() {
-    // Get and print the current time in milliseconds
-    long long current_time_ms = get_current_time();
-    printf("Current time in milliseconds since the Epoch: %lld\n", current_time_ms);
-    return 0;
-}
+

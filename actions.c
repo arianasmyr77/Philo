@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:42:06 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/24 13:32:43 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/26 21:41:11 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -20,23 +20,24 @@ drop_forks()
     //print__action(philo sleeping)
 }*/
 
-void time_to_eat(t_philo *philo)
+void spageti_table_for_philos(t_philo *philo)
 {
-    long time;
+    t_data  *data;
 
-    pthread_mutex_lock(&philo->l_fork);
-    print_action("philo has taken a fork");
-    pthread_mutex_lock(&philo->r_fork);
-    print_action("philo has taken a fork");
-    time = get_current_time() - philo->start_time;
-    print_action(philo->philo_id, EAT);
-    pthread_mutex_unlock(&philo->l_fork);
-    pthread_mutex_unlock(&philo->r_fork);
-    time = get_current_time() - philo->start_time;
-    print_action("philo is sleeping");
-    usleep(200);
-    time  = get_current_time() - philo->start_time;
-    print_action("philo is thinking");
+    data = philo->data;
+    pthread_mutex_lock(&data->forks[philo->l_fork]);
+    print_action(philo, Take_FORK);
+    pthread_mutex_lock(&data->forks[philo->r_fork]);
+    print_action(philo, Take_FORK);
+    print_action(philo, EAT);
+    usleep(data->time_to_eat * 1000);
+    pthread_mutex_unlock(&data->forks[philo->l_fork]);
+    pthread_mutex_unlock(&data->forks[philo->r_fork]);
+    print_action(philo, SLEEP);
+    usleep(data->time_to_sleep * 1000);
+    print_action(philo, THINK);
+    usleep(data->time_to_think * 1000);
+
 }
 
 // void *philosopher(void *arg) {
