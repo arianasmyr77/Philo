@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:45:27 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 21:53:24 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:39:13 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -52,13 +52,14 @@ void ft_usleep(long time_in_ms)
         usleep(100); // Sleep for a short duration to prevent busy-waiting
 }
 
-void print_action(t_philo *philo, const char *action) {
+void print_action(t_philo *philo, const char *action)
+{
     t_data *data = philo->data;
-    long time 
+    time_t time;
     
     time = get_current_time() - data->start_time;
     pthread_mutex_lock(&data->message);
-    printf("[%ld ms] Philosopher %d %s\n", current_time, philo->id, action);
+    printf("[%ld ms] Philosopher %d %s\n", time, philo->id, action);
     pthread_mutex_unlock(&data->message);
 }
 

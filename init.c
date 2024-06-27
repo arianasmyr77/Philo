@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/30 15:55:29 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 22:27:53 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:17:53 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,7 +58,7 @@ void    init_philos(t_data *data)
     // return 0;
 }
 
-void    free_data(t-data *data)
+void    free_data(t_data *data)
 {
     int i;
 
@@ -76,14 +76,4 @@ void    free_data(t-data *data)
     free(data->philos);
     free(data);
 }
-
-
-// void    init_data(t_data *data)
-// {
-//     data->philo_num = ft_atoi(argv[1]);
-//     data->time_to_die  = ft_atoi(argv[2]);
-//     data->time_to_eat = ft_atoi(argv[3]);
-//     data->time_to_sleep = ft_atoi(argv[4]);
-// }
-
  

@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:42:06 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/26 21:41:11 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/06/27 15:13:50 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -44,17 +44,7 @@ void spageti_table_for_philos(t_philo *philo)
 //     t_philo *philo = (t_philo *)arg;
 
 //     while (!philo->dead_flag) {
-//         print_action(philo->philo_id, THINK);
-//         usleep(1000);
-
-//         print_action(philo->philo_id, FORK);
-//         usleep(1000);
-
-//         print_action(philo->philo_id, EAT);
-//         usleep(2000);
-
-//         print_action(philo->philo_id, SLEEP);
-//         usleep(1000);
+//        spageti_table_for_philos(&philo);
 //     }
 
 //     print_action(philo->philo_id, DIED);
