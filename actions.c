@@ -20,6 +20,8 @@ drop_forks()
     //print__action(philo sleeping)
 }*/
 
+
+
 void spageti_table_for_philos(t_philo *philo)
 {
     t_data  *data;
