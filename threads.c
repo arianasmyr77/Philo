@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+
+
 // void    handle_one_philo()
 // {
 //     t_philo philo;
