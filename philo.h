@@ -28,9 +28,12 @@ typedef struct s_philo
 {
     struct s_data   *data;
     int pos;
+    int times_eaten;
     int id;
     int l_fork;
     int r_fork;
+    // pthread_mutex_t	*r_fork;
+	// pthread_mutex_t	*l_fork;
     pthread_t thread;
     int dead_flag;
 
@@ -44,13 +47,13 @@ typedef struct s_data
     int time_to_eat;
     int time_to_sleep;
     int time_to_think;
-    int time_each_philo_should_eat;
+    int num_times_to_eat;
     int dead_flag;
     
     t_philo     *philos;
     pthread_mutex_t *forks;
     pthread_mutex_t message;
-    pthread_mutex_t check_breaker;
+    pthread_mutex_t death_mutex;
     pthread_mutex_t check_final_eating;
 } t_data;
 
