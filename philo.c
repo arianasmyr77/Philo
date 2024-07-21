@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:41:07 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/09 20:18:29 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:44:03 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -31,8 +31,8 @@ int main(int argc, char **argv)
     t_data *data;
     int i;
  
-    // if (argc != 5)
-    //     return 1;
+    if (argc != 5)
+        return 1;
 
     data = (t_data *)malloc(sizeof(t_data));
     data->philo_num = ft_atoi(argv[1]);
@@ -58,4 +58,5 @@ int main(int argc, char **argv)
     free_data(data);
 
     return (0);
+>>>>>>> 00d545180b5bf7d5ad2d3d8621a7a55d2f370321
 }

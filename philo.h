@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/09 20:17:30 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:44:51 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,9 +28,12 @@ typedef struct s_philo
 {
     struct s_data   *data;
     int pos;
+    int times_eaten;
     int id;
     int l_fork;
     int r_fork;
+    // pthread_mutex_t	*r_fork;
+	// pthread_mutex_t	*l_fork;
     pthread_t thread;
     int dead_flag;
 
@@ -44,13 +47,13 @@ typedef struct s_data
     int time_to_eat;
     int time_to_sleep;
     int time_to_think;
-    int time_each_philo_should_eat;
+    int num_times_to_eat;
     int dead_flag;
     
     t_philo     *philos;
     pthread_mutex_t *forks;
     pthread_mutex_t message;
-    pthread_mutex_t check_breaker;
+    pthread_mutex_t death_mutex;
     pthread_mutex_t check_final_eating;
 } t_data;
 
@@ -61,13 +64,13 @@ void    init_philos(t_data *data);
 void spageti_table_for_philos(t_philo *philo);
 
 //utils.c
-void    print_action(t_philo *philo, const char *action);
+void print_action(t_philo *philo, const char *action);
 void    free_data(t_data *data);
 int	    ft_atoi(const char *str);
 void    ft_usleep(long time_in_ms);
-long     get_current_time(void);
 
 //philo.c
 void *goes_routina(void *arg);
 
+>>>>>>> 00d545180b5bf7d5ad2d3d8621a7a55d2f370321
 #endif
