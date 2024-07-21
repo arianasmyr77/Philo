@@ -53,4 +53,3 @@ int check_die(t_data *data, t_philo *philo, int check_any)
     }
     return (0);
 }
->>>>>>> 00d545180b5bf7d5ad2d3d8621a7a55d2f370321

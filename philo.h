@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/21 11:44:51 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/21 11:52:55 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,5 +72,4 @@ void    ft_usleep(long time_in_ms);
 //philo.c
 void *goes_routina(void *arg);
 
->>>>>>> 00d545180b5bf7d5ad2d3d8621a7a55d2f370321
 #endif
