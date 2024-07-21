@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/06/27 15:34:49 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/09 20:17:30 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -61,10 +61,11 @@ void    init_philos(t_data *data);
 void spageti_table_for_philos(t_philo *philo);
 
 //utils.c
-void print_action(t_philo *philo, const char *action);
+void    print_action(t_philo *philo, const char *action);
 void    free_data(t_data *data);
 int	    ft_atoi(const char *str);
 void    ft_usleep(long time_in_ms);
+long     get_current_time(void);
 
 //philo.c
 void *goes_routina(void *arg);

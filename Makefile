@@ -21,7 +21,7 @@ SRCS = actions.c \
 
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra -g
+CFLAGS	= -Wall -Werror -Wextra -g -fsanitize=thread
 REMOVE = rm -f
 
 %o: %c
