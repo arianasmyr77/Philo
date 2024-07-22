@@ -6,13 +6,13 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:41:07 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/22 15:50:40 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/22 17:00:24 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "philo.h"
 
-void    check_arguments(t)
+void    check_arguments()
 {
     if (data->philo_num <= 0)
         return (1);
@@ -44,6 +44,8 @@ int main(int argc, char **argv)
     data->num_times_to_eat = (argc == 6) ? ft_atoi(argv[5]);
     data->dead_flag = 0; 
     data->all_ate_enough = 0;
+    if (!check_arguments)
+        return (1);
     // if (philo_num <= 0 || time_to_die <= 0 || time_to_eat <= 0 /
     // || time_to_sleep <= 0)
     // {

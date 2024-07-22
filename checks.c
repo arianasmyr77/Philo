@@ -42,3 +42,8 @@ int check_die(t_data *data, t_philo *philo, int check_any)
 }
 
 int check_philo_last_meal()
+void    any_dead_philosopher()
+{
+    int dead = 0;
+    pthread_mutex_lock(data->death_mutex)
+}

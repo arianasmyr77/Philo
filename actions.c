@@ -60,6 +60,7 @@ void *routine(void *arg)
         dinner(philo);
         sleep_time(philo);
         think_time(philo);
+        times_eaten++;
     }
     return NULL;
 }
