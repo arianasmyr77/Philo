@@ -12,18 +12,6 @@
 
 #include "philo.h"
 
-void    check_arguments(t)
-{
-    if (data->philo_num <= 0)
-        return (1);
-    else if (data->time_to_eat <= 0)
-        return (1);
-    else if (data->time_to_sleep <= 0)
-        return (1);
-    else if (data->time_to_think <= 0)
-        return (1) ;
-}
-
 int check_philo_death(t_data *data)
 {
     int any_dead;

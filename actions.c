@@ -11,18 +11,18 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-/*
-//pthread_mutex_t forks[NUM_PHILOSOPHERS]; // Mutexes for each fork
-drop_forks()
+
+void    think_time(t_philo *philo)
 {
-     pthread_mutex_unlock(&forks[philo->r_fork]);
-    pthread_mutex_unlock(&forks[philo->l_fork]);
-    //print__action(philo sleeping)
-}*/
 
+    t_data  *data;
 
+    data = philo->data;
+    print_action(philo, THINK);
+    ft_usleep(data->time_to_think);
+}
 
-void spageti_table_for_philos(t_philo *philo)
+void dinner(t_philo *philo)
 {
     t_data  *data;
 
@@ -32,24 +32,33 @@ void spageti_table_for_philos(t_philo *philo)
     pthread_mutex_lock(&data->forks[philo->r_fork]);
     print_action(philo, Take_FORK);
     print_action(philo, EAT);
-    usleep(data->time_to_eat * 1000);
+    ft_usleep(data->time_to_eat);
     pthread_mutex_unlock(&data->forks[philo->l_fork]);
     pthread_mutex_unlock(&data->forks[philo->r_fork]);
-    print_action(philo, SLEEP);
-    usleep(data->time_to_sleep * 1000);
-    print_action(philo, THINK);
-    usleep(data->time_to_think * 1000);
-
 }
 
-// void *philosopher(void *arg) {
-//     t_philo *philo = (t_philo *)arg;
+void  sleep_time(t_philo *philo)
+{
+    t_data *data;
 
-//     while (!philo->dead_flag) {
-//        spageti_table_for_philos(&philo);
-//     }
+    data = philo->data;
+    print_action(philo, SLEEP);
+    ft_usleep(data->time_to_sleep);
+}
 
-//     print_action(philo->philo_id, DIED);
+void *routine(void *arg)
+{
+    t_philo *philo = (t_philo *)arg;
+    t_data *data = philo->data;
 
-//     return NULL;
-// }
+    while () {
+        if (data->dead_flag) 
+        {
+            break;
+        }
+        dinner(philo);
+        sleep_time(philo);
+        think_time(philo);
+    }
+    return NULL;
+}

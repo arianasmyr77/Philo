@@ -55,7 +55,7 @@ void ft_usleep(long time_in_ms)
 void print_action(t_philo *philo, const char *action)
 {
     t_data *data = philo->data;
-    time_t time;
+    long time;
     
     time = get_current_time() - data->start_time;
     pthread_mutex_lock(&data->message);

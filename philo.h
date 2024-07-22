@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/21 11:52:55 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/22 13:24:19 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -28,10 +28,10 @@ typedef struct s_philo
 {
     struct s_data   *data;
     int pos;
-    int times_eaten;
     int id;
     int l_fork;
     int r_fork;
+    int last_eat;
     // pthread_mutex_t	*r_fork;
 	// pthread_mutex_t	*l_fork;
     pthread_t thread;
@@ -54,7 +54,8 @@ typedef struct s_data
     pthread_mutex_t *forks;
     pthread_mutex_t message;
     pthread_mutex_t death_mutex;
-    pthread_mutex_t check_final_eating;
+    pthread_t         any_dead_philo;
+   // pthread_mutex_t check_final_eating;
 } t_data;
 
 //init.c
