@@ -51,8 +51,9 @@ void *routine(void *arg)
     t_philo *philo = (t_philo *)arg;
     t_data *data = philo->data;
 
-    while () {
-        if (data->dead_flag) 
+    while (1) 
+    {
+        if (data->dead_flag || ) 
         {
             break;
         }

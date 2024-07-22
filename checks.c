@@ -22,7 +22,6 @@ int check_philo_death(t_data *data)
     return (any_dead);
 }
 
-
 int check_die(t_data *data, t_philo *philo, int check_any)
 {
     int time;
@@ -41,3 +40,5 @@ int check_die(t_data *data, t_philo *philo, int check_any)
     }
     return (0);
 }
+
+int check_philo_last_meal()

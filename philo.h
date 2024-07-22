@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/22 13:24:19 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/22 15:25:59 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -36,6 +36,7 @@ typedef struct s_philo
 	// pthread_mutex_t	*l_fork;
     pthread_t thread;
     int dead_flag;
+    int all_ate_enough;
 
 } t_philo;
 
