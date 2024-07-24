@@ -53,14 +53,16 @@ void *routine(void *arg)
 
     while (1) 
     {
-        if (data->dead_flag || ) 
-        {
-            break;
-        }
+        if (is_any_philo_dead(data) || all_philos_ate_enough(data)) 
+            break ;
         dinner(philo);
         sleep_time(philo);
         think_time(philo);
-        times_eaten++;
+        
+        pthread_mutex_lock(&data->check_death_mutex);
+        philo->eaten_times++;
+        data->all_ate_enough = all_philos_ate_enough(data);
+        pthread_mutex_unlock(&data->check_death_mutex);
     }
     return NULL;
 }

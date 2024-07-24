@@ -54,6 +54,6 @@ int main(int argc, char **argv)
     // }
     init_data(&data);
     create_and_join_threads(&data);
-    free_data(data);
+    free_data(&data);
     return (0);
 }

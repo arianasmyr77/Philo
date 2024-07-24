@@ -27,35 +27,32 @@
 typedef struct s_philo
 {
     struct s_data   *data;
-    int pos;
     int id;
     int l_fork;
     int r_fork;
-    int last_eat;
-    // pthread_mutex_t	*r_fork;
-	// pthread_mutex_t	*l_fork;
-    pthread_t thread;
+    int eaten_times;
     int dead_flag;
-    int all_ate_enough;
-
+    int last_eat;
+    pthread_t thread;
 } t_philo;
 
 typedef struct s_data
 {
     int     philo_num;
-    long start_time;
-    int time_to_die;
-    int time_to_eat;
-    int time_to_sleep;
-    int time_to_think;
-    int num_times_to_eat;
-    int dead_flag;
+    long    start_time;
+    int     time_to_die;
+    int     time_to_eat;
+    int     time_to_sleep;
+    int     time_to_think;
+    int     num_times_to_eat;
+    int     all_ate_enough;
+    int     dead_flag;
     
-    t_philo     *philos;
+    t_philo         *philos;
     pthread_mutex_t *forks;
     pthread_mutex_t message;
-    pthread_mutex_t death_mutex;
-    pthread_t         any_dead_philo;
+    pthread_mutex_t check_death_mutex;
+   // pthread_t         any_dead_philo;
    // pthread_mutex_t check_final_eating;
 } t_data;
 
