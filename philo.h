@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/07/22 15:25:59 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/07/25 13:27:48 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@
 # define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
+# define DEAD "has died"
 
 typedef struct s_philo
 {
@@ -52,23 +53,29 @@ typedef struct s_data
     pthread_mutex_t *forks;
     pthread_mutex_t message;
     pthread_mutex_t check_death_mutex;
-   // pthread_t         any_dead_philo;
-   // pthread_mutex_t check_final_eating;
+    pthread_mutex_t philo_can_eat;
+    //*pthread_mutex_t don't_die;
+    //pthread_mutex_t philo_can_eat;*you need to have one to prevent the death of philo and one to let him eat not to die from starvation jajaja
+    // pthread_t         any_dead_philo;
+    // pthread_mutex_t check_final_eating;
 } t_data;
 
 //init.c
-void    init_philos(t_data *data);
+void    init_data(t_data *data);
+void    create_and_join_threads(t_data *data);
+void    free_data(t_data *data);
 
 //actions.c
-void spageti_table_for_philos(t_philo *philo);
+void *routine(void *arg);
+
+//checks 
+int all_philos_ate_enough(t_data *data);
+int is_any_philo_dead(t_data *data);
 
 //utils.c
-void print_action(t_philo *philo, const char *action);
-void    free_data(t_data *data);
+long    get_current_time(void);
 int	    ft_atoi(const char *str);
 void    ft_usleep(long time_in_ms);
-
-//philo.c
-void *goes_routina(void *arg);
+void    print_action(t_philo *philo, const char *action);
 
 #endif

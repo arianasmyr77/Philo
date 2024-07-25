@@ -27,6 +27,7 @@ void dinner(t_philo *philo)
     t_data  *data;
 
     data = philo->data;
+    pthread_mutex_lock(&data->philo_can_eat);
     pthread_mutex_lock(&data->forks[philo->l_fork]);
     print_action(philo, Take_FORK);
     pthread_mutex_lock(&data->forks[philo->r_fork]);
@@ -35,6 +36,7 @@ void dinner(t_philo *philo)
     ft_usleep(data->time_to_eat);
     pthread_mutex_unlock(&data->forks[philo->l_fork]);
     pthread_mutex_unlock(&data->forks[philo->r_fork]);
+    pthread_mutex_unlock(&data->philo_can_eat);
 }
 
 void  sleep_time(t_philo *philo)
@@ -54,11 +56,13 @@ void *routine(void *arg)
     while (1) 
     {
         if (is_any_philo_dead(data) || all_philos_ate_enough(data)) 
+        {
+            print_action(philo, DEAD);
             break ;
+        }
         dinner(philo);
         sleep_time(philo);
         think_time(philo);
-        
         pthread_mutex_lock(&data->check_death_mutex);
         philo->eaten_times++;
         data->all_ate_enough = all_philos_ate_enough(data);

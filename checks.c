@@ -14,44 +14,69 @@
 
 int all_philos_ate_enough(t_data *data)
 {
-    int i;
-    int all_ate;
-
-    i = 0;
-    all_ate = 1;
-    pthread_mutex_lock(&data->check_death_mutex);
+    int i = 0;
     while (i < data->philo_num)
     {
         if (data->philos[i].eaten_times < data->num_times_to_eat)
-        {
-            all_ate = 0;
-            break;
-        }
+            return 0;
         i++;
     }
-    pthread_mutex_unlock(&data->check_death_mutex);
-    return (all_ate);
+    return 1;
 }
 
 int is_any_philo_dead(t_data *data)
 {
-    int i;
-    int dead;
-
-    pthread_mutex_lock(&data->check_death_mutex);
+    int i = 0;
     while (i < data->philo_num)
     {
         if (data->philos[i].dead_flag)
-        {
-            dead = 1;
-            break ;
-        }
+            return 1;
         i++;
     }
-    pthread_mutex_unlock(&data->check_death_mutex);
-
-    return (dead);
+    return 0;
 }
+//uncomment this later if new changes didn't wokr
+//thee code beloww is not compiling good don't use 
+// int all_philos_ate_enough(t_data *data)
+// {
+//     int i;
+//     int all_ate;
+
+//     i = 0;
+//     all_ate = 1;
+//     pthread_mutex_lock(&data->check_death_mutex);
+//     while (i < data->philo_num)
+//     {
+//         if (data->philos[i].eaten_times < data->num_times_to_eat)
+//         {
+//             all_ate = 0;
+//             break;
+//         }
+//         i++;
+//     }
+//     pthread_mutex_unlock(&data->check_death_mutex);
+//     return (all_ate);
+// }
+
+// int is_any_philo_dead(t_data *data)
+// {
+//     int i;
+//     int dead;
+
+//     pthread_mutex_lock(&data->check_death_mutex);
+//     while (i < data->philo_num)
+//     {
+//         if (data->philos[i].dead_flag)
+//         {
+//             dead = 1;
+//             break ;
+//         }
+//         i++;
+//     }
+//     pthread_mutex_unlock(&data->check_death_mutex);
+
+//     return (dead);
+// }
 // int check_philo_death(t_data *data)
 // {
 //     int any_dead;

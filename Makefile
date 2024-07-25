@@ -6,7 +6,7 @@
 #    By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+         #
 #                                                 +#+#+#+#+#+   +#+            #
 #    Created: 2024/06/25 11:32:51 by arforouz          #+#    #+#              #
-#    Updated: 2024/07/21 11:52:29 by arforouz         ###   ########.fr        #
+#    Updated: 2024/07/25 11:47:15 by arforouz         ###   ########.fr        #
 #                                                                              #
 # **************************************************************************** #
 
@@ -15,8 +15,9 @@ NAME = philo
 INCLUDE	= philo.h
 
 SRCS = actions.c \
+	checks.c \
 	init.c \
-	philo.c \
+	main.c \
 	utils.c \
 
 CC		= gcc

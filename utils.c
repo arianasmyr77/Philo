@@ -55,7 +55,7 @@ void ft_usleep(long time_in_ms)
 void print_action(t_philo *philo, const char *action)
 {
     t_data *data = philo->data;
-    long time;
+    time_t time;
     
     time = get_current_time() - data->start_time;
     pthread_mutex_lock(&data->message);
@@ -63,3 +63,12 @@ void print_action(t_philo *philo, const char *action)
     pthread_mutex_unlock(&data->message);
 }
 
+//los dos funcionan pero si en vez de time_t usas long no funciona 
+// void print_action(t_philo *philo, const char *action)
+// {
+//     t_data *data = philo->data;
+//     long time = get_current_time() - data->start_time;
+//     pthread_mutex_lock(&data->message);
+//     printf("[%ld ms] Philosopher %d %s\n", time, philo->id, action);
+//     pthread_mutex_unlock(&data->message);
+// }

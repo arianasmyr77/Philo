@@ -21,6 +21,7 @@ void    init_data(t_data *data)
     //initializing mutexes for fokrs
     pthread_mutex_init(&data->message, NULL);
     pthread_mutex_init(&data->check_death_mutex, NULL);
+    pthread_mutex_init(&data->philo_can_eat, NULL);
     i = 0;
     while (i < data->philo_num)
     {
@@ -45,14 +46,14 @@ void    init_data(t_data *data)
 void    create_and_join_threads(t_data *data)
 {
     int i;
-    pthread *threads;
+    pthread_t *threads;
 
     threads = (pthread_t *)malloc(data->philo_num * sizeof(pthread_t));
     i = 0;
     while (i < data->philo_num)
     {
         pthread_create(&threads[i], NULL, routine, (void *)&data->philos[i]);
-        i++
+        i++;
     }
     i = 0;
     while (i < data->philo_num) 
@@ -76,6 +77,7 @@ void    free_data(t_data *data)
 
     pthread_mutex_destroy(&data->message);
     pthread_mutex_destroy(&data->check_death_mutex);
+    pthread_mutex_destroy(&data->philo_can_eat);
 
     free(data->forks);
     free(data->philos);
