@@ -33,6 +33,8 @@ void dinner(t_philo *philo)
     pthread_mutex_lock(&data->forks[philo->r_fork]);
     print_action(philo, Take_FORK);
     print_action(philo, EAT);
+    philo->last_eat = get_current_time();
+    philo->eaten_times++;
     ft_usleep(data->time_to_eat);
     pthread_mutex_unlock(&data->forks[philo->l_fork]);
     pthread_mutex_unlock(&data->forks[philo->r_fork]);
@@ -70,3 +72,4 @@ void *routine(void *arg)
     }
     return NULL;
 }
+

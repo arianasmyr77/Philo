@@ -36,13 +36,19 @@ int main(int argc, char **argv)
     }
         
     data = (t_data *)malloc(sizeof(t_data));
+    if(data == NULL)
+      return (1);
     data->philo_num = ft_atoi(argv[1]);
     data->time_to_die  = ft_atoi(argv[2]);
     data->time_to_eat = ft_atoi(argv[3]);
     data->time_to_sleep = ft_atoi(argv[4]);
-    data->num_times_to_eat = ft_atoi(argv[5]);
+    if (argv[5])
+    {
+        data->num_times_to_eat = ft_atoi(argv[5]);
+    }
     data->dead_flag = 0; 
     data->all_ate_enough = 0;
+    data->start_time = get_current_time();
     // if (philo_num <= 0 || time_to_die <= 0 || time_to_eat <= 0 /
     // || time_to_sleep <= 0)
     // {
@@ -51,6 +57,6 @@ int main(int argc, char **argv)
     // }
     init_data(data);
     create_and_join_threads(data);
-   // free_data(data);
+    free_data(data);
     return (0);
 }
