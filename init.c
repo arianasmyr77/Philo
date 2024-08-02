@@ -32,13 +32,13 @@ void    init_data(t_data *data)
     i = 0;
     while (i < data->philo_num)
     {
-        //data->philos[i].data = &data;
         data->philos[i].data = data;
         data->philos[i].id = i + 1;
         data->philos[i].l_fork = i;
         data->philos[i].r_fork = (i + 1) % data->philo_num;
-        data->philos[i].dead_flag = 0;
+        //data->philos[i].dead_flag = 0;
         data->philos[i].eaten_times = 0;
+        data->philos[i].last_eat = data->start_time;
         i++;
     }
 }
@@ -63,7 +63,47 @@ void    create_and_join_threads(t_data *data)
     }
     free(threads);
 }
+/*
+void init_data(t_data *data)
+{
+    int i;
 
+    data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_num);
+
+    // Initialize mutexes for forks
+    pthread_mutex_init(&data->message, NULL);
+    pthread_mutex_init(&data->check_death_mutex, NULL);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_mutex_init(&data->forks[i], NULL);
+        i++;
+    }
+    
+    data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        data->philos[i].data = data;
+        data->philos[i].id = i + 1;
+        data->philos[i].l_fork = i;
+        data->philos[i].r_fork = (i + 1) % data->philo_num;
+        data->philos[i].eaten_times = 0;
+        data->philos[i].last_eat = data->start_time;
+        pthread_create(&data->philos[i].thread, NULL, routine, (void *)&data->philos[i]);
+        i++;
+    }
+}
+
+void create_and_join_threads(t_data *data)
+{
+    int i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_join(data->philos[i].thread, NULL);
+        i++;
+    }
+}*/
 void    free_data(t_data *data)
 {
     int i;

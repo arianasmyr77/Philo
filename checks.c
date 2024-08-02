@@ -30,13 +30,37 @@ int is_any_philo_dead(t_data *data)
     while (i < data->philo_num)
     {
         if (data->philos[i].dead_flag)
+        {
             return 1;
+        }  
         i++;
     }
     return 0;
 }
-//uncomment this later if new changes didn't wokr
-//thee code beloww is not compiling good don't use 
+
+int check_death(t_data *data)
+{
+    int i;
+    long current_time = get_current_time();
+
+    pthread_mutex_lock(&data->check_death_mutex);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        if ((current_time - data->philos[i].last_eat) > data->time_to_die)
+        {
+            data->dead_flag = 1;
+            print_action(&data->philos[i], DEAD);
+            pthread_mutex_unlock(&data->check_death_mutex);
+            return 1;
+        }
+        i++;
+    }
+    pthread_mutex_unlock(&data->check_death_mutex);
+    return 0;
+}
+// uncomment this later if new changes didn't wokr
+// thee code beloww is not compiling good don't use 
 // int all_philos_ate_enough(t_data *data)
 // {
 //     int i;
@@ -77,38 +101,27 @@ int is_any_philo_dead(t_data *data)
 
 //     return (dead);
 // }
-// int check_philo_death(t_data *data)
-// {
-//     int any_dead;
 
-//     pthread_mutex_lock(&(data->any_dead_mutex));
-//     any_dead = data->any_dead;
-//     pthread_mutex_unlock(&(data->any_dead_mutex));
-//     return (any_dead);
-// }
+/*
+void *routine(void *arg)
+{
+    t_philo *philo = (t_philo *)arg;
+    t_data *data = philo->data;
 
-// int check_die(t_data *data, t_philo *philo, int check_any)
-// {
-//     int time;
-
-//     if (check_any)
-//     {
-//         if (check_philo_death(data))
-//             return (1);
-//     }
-
-//     time = get_time(data);
-//     if (time - philo->last_eat > data->time_to_die)
-//     {
-//         print_philo_msg(data, philo->id, DEAD);
-//         return (1);
-//     }
-//     return (0);
-// }
-
-// int check_philo_last_meal()
-// void    any_dead_philosopher()
-// {
-//     int dead = 0;
-//     pthread_mutex_lock(data->death_mutex)
-// }
+    while (is_any_philo_dead(data)) 
+    {
+        if (all_philos_ate_enough(data)) 
+        {
+            break ;
+        }
+        //pthread_mutex_lock(&data->check_death_mutex);
+        dinner(philo);
+        sleep_time(philo);
+        think_time(philo);
+        pthread_mutex_lock(&data->check_death_mutex);
+        philo->eaten_times++;
+        data->all_ate_enough = all_philos_ate_enough(data);
+        pthread_mutex_unlock(&data->check_death_mutex);
+    }
+    return NULL;
+}*/
