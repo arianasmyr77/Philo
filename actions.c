@@ -48,18 +48,43 @@ void  sleep_time(t_philo *philo)
     ft_usleep(data->time_to_sleep);
 }
 
+// void *routine(void *arg)
+// {
+//     t_philo *philo = (t_philo *)arg;
+//     t_data *data = philo->data;
+
+//     while (1) 
+//     {
+//         if (is_any_philo_dead(data) || all_philos_ate_enough(data)) 
+//         {
+//             print_action(philo, DEAD);
+//             break ;
+//         }
+//         //pthread_mutex_lock(&data->check_death_mutex);
+//         dinner(philo);
+//         sleep_time(philo);
+//         think_time(philo);
+//         pthread_mutex_lock(&data->check_death_mutex);
+//         philo->eaten_times++;
+//         data->all_ate_enough = all_philos_ate_enough(data);
+//         pthread_mutex_unlock(&data->check_death_mutex);
+//     }
+//     return NULL;
+// }
+
 void *routine(void *arg)
 {
     t_philo *philo = (t_philo *)arg;
     t_data *data = philo->data;
 
-    while (1) 
+    while (is_any_philo_dead(data)) 
     {
-        if (is_any_philo_dead(data) || all_philos_ate_enough(data)) 
+        if (all_philos_ate_enough(data)) 
         {
-            print_action(philo, DEAD);
+            //print_action(philo, DEAD);
             break ;
         }
+        //pthread_mutex_lock(&data->check_death_mutex);
         dinner(philo);
         sleep_time(philo);
         think_time(philo);
@@ -68,5 +93,6 @@ void *routine(void *arg)
         data->all_ate_enough = all_philos_ate_enough(data);
         pthread_mutex_unlock(&data->check_death_mutex);
     }
+    print_action(philo, DEAD);
     return NULL;
 }
