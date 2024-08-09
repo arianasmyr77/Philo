@@ -107,7 +107,7 @@ void *routine(void *arg)
 
     while (1) 
     {
-            if (!all_philos_ate_enough(data)) 
+            if (arg == 5 && all_philos_ate_enough(data)) 
             {
                 break ;
             }
