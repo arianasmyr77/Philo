@@ -6,7 +6,7 @@
 /*   By: arforouz <arforouz@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2024/05/16 19:43:39 by arforouz          #+#    #+#             */
-/*   Updated: 2024/08/02 13:26:23 by arforouz         ###   ########.fr       */
+/*   Updated: 2024/08/08 14:23:30 by arforouz         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -72,6 +72,7 @@ void *routine(void *arg);
 int all_philos_ate_enough(t_data *data);
 int is_any_philo_dead(t_data *data);
 int check_death(t_data *data);
+int check_die(t_data *data, t_philo *philo);
 
 //utils.c
 long    get_current_time(void);
