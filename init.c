@@ -44,7 +44,7 @@ void    init_data(t_data *data)
         data->philos[i].l_fork = i;
         data->philos[i].r_fork = (i + 1) % data->philo_num;
         data->philos[i].dead_flag = 0;
-        data->philos[i].eaten_times = 0;
+        data->philos[i].times_eaten = 0;
         data->philos[i].last_eat = data->start_time;
         i++;
     }
