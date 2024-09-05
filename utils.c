@@ -43,20 +43,33 @@ int	ft_atoi(const char *str)
 	return (ret * is_negative);
 }
 
-void ft_usleep(long time_in_ms)
-{
-    long start_time = get_current_time();
-    long end_time = start_time + time_in_ms;
+// void	ft_usleep(int time)
+// {
+// 	long	start_time;
 
-    while (get_current_time() < end_time)
-        usleep(100);
+// 	start_time = get_current_time();
+// 	while (get_current_time() - start_time < time)
+// 		usleep(500);
+// 	return ;
+// }
+
+int	ft_usleep(size_t millisec)
+{
+	size_t	s_time;
+
+	s_time = get_current_time();
+	while ((get_current_time() - s_time) < millisec)
+		usleep(500);
+	return (0);
 }
 
 void print_action(t_philo *philo, const char *action)
 {
     t_data *data = philo->data;
     time_t time;
-    
+
+	if (check_all_ate(data))
+		return ;
     time = get_current_time() - data->start_time;
     pthread_mutex_lock(&data->message);
     printf("%ld ms %d %s\n", time, philo->id, action);

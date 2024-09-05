@@ -81,7 +81,7 @@ void monitor_philos(t_data *data);
 //utils.c
 long    get_current_time(void);
 int	    ft_atoi(const char *str);
-void    ft_usleep(long time_in_ms);
+int	    ft_usleep(size_t millisec);
 void    print_action(t_philo *philo, const char *action);
 void    *monitor_routine(void *arg);
 #endif

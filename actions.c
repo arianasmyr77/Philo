@@ -46,7 +46,8 @@ void  sleep_time(t_philo *philo)
     ft_usleep(data->time_to_sleep);
 }
 
-void *routine(void *arg) {
+void *routine(void *arg)
+{
     t_philo *philo = (t_philo *)arg;
     t_data *data = philo->data;
 
@@ -68,3 +69,28 @@ void *routine(void *arg) {
     }
     return NULL;
 }
+
+//wokrs with the last argument too but dying message does not appear
+// void *routine(void *arg)
+// {
+//     t_philo *philo = (t_philo *)arg;
+//     t_data *data = philo->data;
+
+//     while (1)
+//     {
+//         if (check_die(data, philo))
+//         {
+//             break;
+//         }
+//         if(philo->id % 2 == 0)
+//         {
+//              ft_usleep(30);
+//         }
+//         if (data->num_times_to_eat != -1 && check_all_ate(data))
+//             break;
+//         dinner(philo);
+//         sleep_time(philo);
+//         think_time(philo);
+//     }
+//     return NULL;
+// }

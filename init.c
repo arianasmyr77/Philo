@@ -65,7 +65,8 @@ void    create_and_join_threads(t_data *data)
     i = 0;
     while (i < data->philo_num) 
     {
-        pthread_join(threads[i], NULL);
+        pthread_join(threads[i]
+        , NULL);
         i++;
     }
     free(threads);
