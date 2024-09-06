@@ -31,10 +31,11 @@ typedef struct s_philo
     int id;
     int l_fork;
     int r_fork;
-    int eaten_times;
+    int times_eaten;
     int dead_flag;
     int last_eat;
     pthread_t thread;
+    //pthread_mutex_t check_death_mutex;
 } t_philo;
 
 typedef struct s_data
@@ -73,11 +74,14 @@ int all_philos_ate_enough(t_data *data);
 int is_any_philo_dead(t_data *data);
 int check_death(t_data *data);
 int check_die(t_data *data, t_philo *philo);
-
+int check_any_die(t_data *data);
+int check_death_time(t_philo *philo);
+int check_all_ate(t_data *data);
+void monitor_philos(t_data *data);
 //utils.c
 long    get_current_time(void);
 int	    ft_atoi(const char *str);
-void    ft_usleep(long time_in_ms);
+int	    ft_usleep(size_t millisec);
 void    print_action(t_philo *philo, const char *action);
-
+void    *monitor_routine(void *arg);
 #endif
