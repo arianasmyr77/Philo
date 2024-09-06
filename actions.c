@@ -33,7 +33,7 @@ void dinner(t_philo *philo)
     philo->last_eat = get_current_time();
     philo->eaten_times++;
     pthread_mutex_unlock(&data->philo_can_eat);
-    ft_usleep(data->time_to_eat);
+    //ft_usleep(data->time_to_eat);
     pthread_mutex_unlock(&data->forks[philo->l_fork]);
     pthread_mutex_unlock(&data->forks[philo->r_fork]);
     //pthread_mutex_unlock(&data->philo_can_eat);
@@ -49,43 +49,45 @@ void  sleep_time(t_philo *philo)
 }
 
 
-void *routine(void *arg)
-{
-    t_philo *philo = (t_philo *)arg;
-    t_data *data = philo->data;
-
-    while (!(check_die(data, philo))) {
-        if(data->philo_num % 2 == 0)
-        {
-            ft_usleep(1);
-        }
-        dinner(philo);
-        sleep_time(philo);
-        think_time(philo);
-    }
-    return NULL;
-}
-
 // void *routine(void *arg)
 // {
 //     t_philo *philo = (t_philo *)arg;
 //     t_data *data = philo->data;
 
-//     while ((!is_any_philo_dead(data))) 
+//     while (!(check_death(data)))
 //     {
-//             if (all_philos_ate_enough(data)) 
-//             {
-//                 break ;
-//             }
+//         if(data->philo_num % 2 == 0)
+//         {
+//             ft_usleep(1);
+//         }
 //         dinner(philo);
 //         sleep_time(philo);
 //         think_time(philo);
-//       //  pthread_mutex_lock(&data->check_death_mutex);
-//        // philo->eaten_times++;
-//         //data->all_ate_enough = all_philos_ate_enough(data);
-//        // pthread_mutex_unlock(&data->check_death_mutex);
 //     }
 //     return NULL;
 // }
+
+void *routine(void *arg)
+{
+    t_philo *philo = (t_philo *)arg;
+    t_data *data = philo->data;
+
+    while ((is_any_philo_dead(data))) 
+    {
+            if (all_philos_ate_enough(data)) 
+            {
+                break ;
+            }
+            if (checkop)
+        dinner(philo);
+        sleep_time(philo);
+        think_time(philo);
+      //  pthread_mutex_lock(&data->check_death_mutex);
+       // philo->eaten_times++;
+        //data->all_ate_enough = all_philos_ate_enough(data);
+       // pthread_mutex_unlock(&data->check_death_mutex);
+    }
+    return NULL;
+}
 
 
