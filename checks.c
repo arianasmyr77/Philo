@@ -11,7 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-
+//CFLAGS	= -Wall -Werror -Wextra -fsanitize=leaks
 int is_any_philo_dead(t_data *data)
 {
     int i = 0;
@@ -26,11 +26,33 @@ int is_any_philo_dead(t_data *data)
     return 0;
 }
 
-//the death message doesn't appear
+// int check_death(t_data *data)
+// {
+//     int i;
+//     int current_time;
+
+//     current_time = get_current_time();
+//     pthread_mutex_lock(&data->check_death_mutex);
+//     i = 0;
+//     while (i < data->philo_num)
+//     {
+//         if ((current_time - data->philos[i].last_eat) > data->time_to_die)
+//         {
+//             data->dead_flag = 1;
+//             print_action(&data->philos[i], DEAD);
+//             pthread_mutex_unlock(&data->check_death_mutex);
+//             return 1;
+//         }
+//         i++;
+//     }
+//     pthread_mutex_unlock(&data->check_death_mutex);
+//     return 0;
+// }
+
+//the death message doesn't appear uncomment all the mutexes .. 
 int check_die(t_data *data, t_philo *philo)
 {
-    int i;
-    long current_time = get_current_time();
+    int time;
 
     pthread_mutex_lock(&(data->check_death_mutex));
     if (data->dead_flag)
@@ -45,7 +67,7 @@ int check_die(t_data *data, t_philo *philo)
         pthread_mutex_lock(&(data->check_death_mutex));
         data->dead_flag = 1; 
         pthread_mutex_unlock(&(data->check_death_mutex));
-        print_action(philo, DEAD);
+        print_action(philo, DEAD); 
         return 1;
     }
     return 0;

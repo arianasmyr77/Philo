@@ -66,7 +66,7 @@ int	ft_usleep(size_t millisec)
 void print_action(t_philo *philo, const char *action)
 {
     t_data *data = philo->data;
-    time_t time;
+    long time;
 
 	if (check_all_ate(data))
 		return ;

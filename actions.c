@@ -32,7 +32,7 @@ void dinner(t_philo *philo)
     philo->last_eat = get_current_time();
     philo->times_eaten++;
     pthread_mutex_unlock(&data->philo_can_eat);
-    //ft_usleep(data->time_to_eat);
+    ft_usleep(data->time_to_eat);
     pthread_mutex_unlock(&data->forks[philo->l_fork]);
     pthread_mutex_unlock(&data->forks[philo->r_fork]);
 }
@@ -51,15 +51,16 @@ void *routine(void *arg)
     t_philo *philo = (t_philo *)arg;
     t_data *data = philo->data;
 
-    while (1)
+    while (data->dead_flag != 1)
     {
         if (check_die(data, philo))
         {
-            break;
+            break ;
         }
         if(philo->id % 2 == 0)
         {
-             ft_usleep(30);
+             ft_usleep(1);
+            //ooft_usleep(30);
         }
         if (data->num_times_to_eat != -1 && check_all_ate(data))
             break;
@@ -70,17 +71,17 @@ void *routine(void *arg)
     return NULL;
 }
 
-//wokrs with the last argument too but dying message does not appear
+//wokrs with both is_anyphilo dead or deadflag
 // void *routine(void *arg)
 // {
 //     t_philo *philo = (t_philo *)arg;
 //     t_data *data = philo->data;
 
-//     while (1)
+//     while (!(is_any_philo_dead(data)))
 //     {
 //         if (check_die(data, philo))
 //         {
-//             break;
+//             break ;
 //         }
 //         if(philo->id % 2 == 0)
 //         {
@@ -91,6 +92,34 @@ void *routine(void *arg)
 //         dinner(philo);
 //         sleep_time(philo);
 //         think_time(philo);
+//     }
+//     return NULL;
+// }
+
+//also works with this one the difference the problem wirh mutexes 
+// void *routine(void *arg)
+// {
+//     t_philo *philo = (t_philo *)arg;
+//     t_data *data = philo->data;
+
+//     while (data->dead_flag != 1)
+//     {
+//         if (check_die(data, philo))
+//         {
+//             break ;
+//         }
+//         if(philo->id % 2 == 0)
+//         {
+//              ft_usleep(30);
+//         }
+//         if (data->num_times_to_eat != -1 && check_all_ate(data))
+//             break;
+//         if (!(is_any_philo_dead(data)))
+//         {
+//             dinner(philo);
+//             sleep_time(philo);
+//             think_time(philo);
+//         }
 //     }
 //     return NULL;
 // }

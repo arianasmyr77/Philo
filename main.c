@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+#include <stdlib.h>
 
 // int    check_arguments(t_data *data)
 // {
@@ -27,7 +28,7 @@
 int main(int argc, char **argv)
 {
     t_data *data;
- 
+
     if (argc < 4 || argc > 6)
     {
         printf("Incorrect number of arguments");

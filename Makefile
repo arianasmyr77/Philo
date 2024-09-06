@@ -22,7 +22,8 @@ SRCS = actions.c \
 
 CC		= gcc
 
-CFLAGS	= -Wall -Werror -Wextra
+CFLAGS	= -Wall -Werror -Wextra -fsanitize=leak
+
 REMOVE = rm -f
 
 %o: %c
