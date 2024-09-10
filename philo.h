@@ -33,9 +33,9 @@ typedef struct s_philo
     int r_fork;
     int times_eaten;
     int dead_flag;
-    int last_eat;
+    long last_eat;
+    long start_time;
     pthread_t thread;
-    //pthread_mutex_t check_death_mutex;
 } t_philo;
 
 typedef struct s_data
@@ -55,10 +55,6 @@ typedef struct s_data
     pthread_mutex_t message;
     pthread_mutex_t check_death_mutex;
     pthread_mutex_t philo_can_eat;
-    //*pthread_mutex_t don't_die;
-    //pthread_mutex_t philo_can_eat;*you need to have one to prevent the death of philo and one to let him eat not to die from starvation jajaja
-    // pthread_t         any_dead_philo;
-    // pthread_mutex_t check_final_eating;
 } t_data;
 
 //init.c
@@ -72,12 +68,9 @@ void *routine(void *arg);
 //checks 
 int all_philos_ate_enough(t_data *data);
 int is_any_philo_dead(t_data *data);
-int check_death(t_data *data);
 int check_die(t_data *data, t_philo *philo);
-int check_any_die(t_data *data);
-int check_death_time(t_philo *philo);
 int check_all_ate(t_data *data);
-void monitor_philos(t_data *data);
+
 //utils.c
 long    get_current_time(void);
 int	    ft_atoi(const char *str);

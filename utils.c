@@ -70,18 +70,11 @@ void print_action(t_philo *philo, const char *action)
 
 	if (check_all_ate(data))
 		return ;
-    time = get_current_time() - data->start_time;
-    pthread_mutex_lock(&data->message);
-    printf("%ld ms %d %s\n", time, philo->id, action);
+	pthread_mutex_lock(&data->message);
+	time = get_current_time() - data->start_time;
+	//if (data->dead_flag != 1)
+	//{
+		printf("%ld ms %d %s\n", time, philo->id, action);
+	//}
     pthread_mutex_unlock(&data->message);
 }
-
-//los dos funcionan pero si en vez de time_t usas long no funciona 
-// void print_action(t_philo *philo, const char *action)
-// {
-//     t_data *data = philo->data;
-//     long time = get_current_time() - data->start_time;
-//     pthread_mutex_lock(&data->message);
-//     printf("[%ld ms] Philosopher %d %s\n", time, philo->id, action);
-//     pthread_mutex_unlock(&data->message);
-// }

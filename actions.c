@@ -24,6 +24,12 @@ void dinner(t_philo *philo)
     data = philo->data;
     pthread_mutex_lock(&data->forks[philo->l_fork]);
     print_action(philo, Take_FORK);
+    // if (data->philo_num == 1)
+	// {
+	// 	ft_usleep(data->time_to_die);
+	// 	pthread_mutex_unlock(&data->forks[philo->l_fork]);
+	// 	return ;
+	// }
     pthread_mutex_lock(&data->forks[philo->r_fork]);
     print_action(philo, Take_FORK);
     pthread_mutex_lock(&data->philo_can_eat);
@@ -51,16 +57,15 @@ void *routine(void *arg)
     t_philo *philo = (t_philo *)arg;
     t_data *data = philo->data;
 
+    if(philo->id % 2 == 0)
+    {
+        ft_usleep(1);
+    }   
     while (data->dead_flag != 1)
     {
         if (check_die(data, philo))
         {
-            break ;
-        }
-        if(philo->id % 2 == 0)
-        {
-             ft_usleep(1);
-            //ooft_usleep(30);
+            break;
         }
         if (data->num_times_to_eat != -1 && check_all_ate(data))
             break;
@@ -68,58 +73,5 @@ void *routine(void *arg)
         sleep_time(philo);
         think_time(philo);
     }
-    return NULL;
+    return (NULL);
 }
-
-//wokrs with both is_anyphilo dead or deadflag
-// void *routine(void *arg)
-// {
-//     t_philo *philo = (t_philo *)arg;
-//     t_data *data = philo->data;
-
-//     while (!(is_any_philo_dead(data)))
-//     {
-//         if (check_die(data, philo))
-//         {
-//             break ;
-//         }
-//         if(philo->id % 2 == 0)
-//         {
-//              ft_usleep(30);
-//         }
-//         if (data->num_times_to_eat != -1 && check_all_ate(data))
-//             break;
-//         dinner(philo);
-//         sleep_time(philo);
-//         think_time(philo);
-//     }
-//     return NULL;
-// }
-
-//also works with this one the difference the problem wirh mutexes 
-// void *routine(void *arg)
-// {
-//     t_philo *philo = (t_philo *)arg;
-//     t_data *data = philo->data;
-
-//     while (data->dead_flag != 1)
-//     {
-//         if (check_die(data, philo))
-//         {
-//             break ;
-//         }
-//         if(philo->id % 2 == 0)
-//         {
-//              ft_usleep(30);
-//         }
-//         if (data->num_times_to_eat != -1 && check_all_ate(data))
-//             break;
-//         if (!(is_any_philo_dead(data)))
-//         {
-//             dinner(philo);
-//             sleep_time(philo);
-//             think_time(philo);
-//         }
-//     }
-//     return NULL;
-// }
