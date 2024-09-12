@@ -12,19 +12,6 @@
 
 #include "philo.h"
 //CFLAGS	= -Wall -Werror -Wextra -fsanitize=leaks
-int is_any_philo_dead(t_data *data)
-{
-    int i = 0;
-    while (i < data->philo_num)
-    {
-        if (data->philos[i].dead_flag)
-        {
-            return 1;
-        }  
-        i++;
-    }
-    return 0;
-}
 
  int check_die(t_data *data, t_philo *philo)
 {
