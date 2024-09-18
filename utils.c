@@ -72,9 +72,13 @@ void print_action(t_philo *philo, const char *action)
 		return ;
 	pthread_mutex_lock(&data->message);
 	time = get_current_time() - data->start_time;
-	//if (data->dead_flag == 0)
+	//if (data->dead_flag != 1)
 	//{
-		printf("%ld ms %d %s\n", time, philo->id, action);
+	printf("%ld ms %d %s\n", time, philo->id, action);
 	//}
+	// if (data->dead_flag == 1)
+	// 	return ;
     pthread_mutex_unlock(&data->message);
+	// if (data->dead_flag == 1)
+	//  	return ;
 }

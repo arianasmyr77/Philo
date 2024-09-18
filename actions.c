@@ -12,6 +12,8 @@
 
 #include "philo.h"
 
+#include "philo.h"
+
 void    think_time(t_philo *philo)
 {
     print_action(philo, THINK);
@@ -26,6 +28,7 @@ void dinner(t_philo *philo)
     print_action(philo, Take_FORK);
     if (data->philo_num == 1)
 	{
+
 		ft_usleep(data->time_to_die);
 		pthread_mutex_unlock(&data->forks[philo->l_fork]);
 		return ;

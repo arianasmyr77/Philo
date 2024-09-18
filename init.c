@@ -12,6 +12,9 @@
 
 #include "philo.h"
 
+
+#include "philo.h"
+
 void    init_data(t_data *data)
 {
     int i;
@@ -40,22 +43,6 @@ void    init_data(t_data *data)
         data->philos[i].last_eat = get_current_time();
         data->philos[i].start_time = get_current_time();
         i++;
-    }
-}
-
-void *death_monitor(void *arg)
-{
-    t_data *data = (t_data *)arg;
-    while (1)
-    {
-        int i = 0;
-        while (i < data->philo_num)
-        {
-            if (check_die(data, &data->philos[i]) || check_all_ate(data))
-                return NULL;
-            i++;
-        }
-        usleep(1000);
     }
 }
 
@@ -101,4 +88,3 @@ void    free_data(t_data *data)
     free(data->philos);
     free(data);
 }
- 
