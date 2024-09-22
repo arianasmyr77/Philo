@@ -28,7 +28,6 @@ void dinner(t_philo *philo)
     print_action(philo, Take_FORK);
     if (data->philo_num == 1)
 	{
-
 		ft_usleep(data->time_to_die);
 		pthread_mutex_unlock(&data->forks[philo->l_fork]);
 		return ;
@@ -66,10 +65,6 @@ void *routine(void *arg)
     }   
     while (data->dead_flag != 1)
     {
-        // if (check_die(data, philo))
-        // {
-        //     break;
-        // }
         if (data->num_times_to_eat != -1 && check_all_ate(data))
             break ;
         dinner(philo);

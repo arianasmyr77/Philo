@@ -58,7 +58,6 @@ int main(int argc, char **argv)
     //     return (1) ;
     // }
     init_data(data);
-    //monitor_philos(data);
     create_and_join_threads(data);
     free_data(data);
     return (0);

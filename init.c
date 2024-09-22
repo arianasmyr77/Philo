@@ -12,9 +12,6 @@
 
 #include "philo.h"
 
-
-#include "philo.h"
-
 void    init_data(t_data *data)
 {
     int i;
