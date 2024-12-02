@@ -69,7 +69,7 @@ void *routine(void *arg);
 //checks 
 int all_philos_ate_enough(t_data *data);
 int is_any_philo_dead(t_data *data);
-int check_die(t_data *data, t_philo *philo);
+int	check_die(t_data *data, t_philo *philo);
 int check_all_ate(t_data *data);
 
 //utils.c
