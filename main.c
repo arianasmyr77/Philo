@@ -55,7 +55,7 @@ int	main(int argc, char **argv)
 	data->start_time = get_current_time();
 	//check_arguments(data);
 	create_and_join_threads(data);
-	check_die(data, data->philos);
+	//check_die(data, data->philos);
 	free_data(data);
 	return (0);
 }

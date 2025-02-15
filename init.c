@@ -11,6 +11,7 @@
 /* ************************************************************************** */
 
 #include "philo.h"
+//the project after checking norminette does not work 
 
 void	init_data(t_data *data)
 {
@@ -69,7 +70,7 @@ void	create_and_join_threads(t_data *data)
 	int		i;
 
 	pthread_create(&monitor_thread, NULL, death_monitor, (void *)data);
-	i = 0;
+    i = 0;
 	threads = malloc(data->philo_num * sizeof(pthread_t));
 	while (i < data->philo_num)
 	{
@@ -83,7 +84,7 @@ void	create_and_join_threads(t_data *data)
 		i++;
 	}
 	pthread_join(monitor_thread, NULL);
-	free(threads);
+	//free(threads);
 }
 
 void	free_data(t_data *data)

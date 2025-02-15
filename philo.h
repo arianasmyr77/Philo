@@ -19,11 +19,11 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-# Define Take_FORK "has taken a fork"
-# Define EAT "is eating"
-# Define SLEEP "is sleeping"
-# Define THINK "is thinking"
-# Define DEAD "has died"
+# define Take_FORK "has taken a fork"
+# define EAT "is eating"
+# define SLEEP "is sleeping"
+# define THINK "is thinking"
+# define DEAD "has died"
 
 typedef struct s_philo
 {
