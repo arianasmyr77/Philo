@@ -43,14 +43,14 @@ int	check_all_ate(t_data *data)
 
 int check_die(t_data *data)
 {
-    long time;
+    //long time;
     int i;
 
     i = 0;
     while (i < data->philo_num)
     {
-        time = get_current_time();
-        if (time - data->philos[i].last_eat > data->time_to_die)
+        //time = get_current_time();
+        if (get_current_time() - data->philos[i].last_eat > data->time_to_die)
         {
             print_action(&data->philos[i], DEAD);
             pthread_mutex_lock(&(data->check_death_mutex));
