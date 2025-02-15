@@ -12,41 +12,66 @@
 
 #include "philo.h"
 //CFLAGS	= -Wall -Werror -Wextra -fsanitize=leaks
-int	check_die(t_data *data, t_philo *philo)
-{
-	long	time;
-
-	pthread_mutex_lock(&(data->check_death_mutex));
-	if (data->dead_flag)
-	{
-		pthread_mutex_unlock(&(data->check_death_mutex));
-		return (1);
-	}
-	pthread_mutex_unlock(&(data->check_death_mutex));
-	time = get_current_time();
-	if (time - philo->last_eat > data->time_to_die)
-	{
-		pthread_mutex_lock(&(data->check_death_mutex));
-		data->dead_flag = 1;
-		pthread_mutex_unlock(&(data->check_death_mutex));
-		print_action(philo, DEAD);
-		return (1);
-	}
-	return (0);
-}
 
 int	check_all_ate(t_data *data)
 {
 	int	i;
+    int all_ate;
 
-	if (data->num_times_to_eat == -1)
-		return (0);
-	i = 0;
-	while (i < data->philo_num)
+    i = 0;
+    all_ate = 0;
+    if (data->num_times_to_eat == -1)
+        return (0);
+    while (i < data->philo_num)
 	{
-		if (data->philos[i].times_eaten < data->num_times_to_eat)
-			return (0);
+		//pthread_mutex_lock(&data->philo_can_eat);
+		if (data->philos[i].times_eaten >= data->num_times_to_eat)
+			all_ate++;
+		//pthread_mutex_unlock(&data->philo_can_eat);
 		i++;
 	}
-	return (1);
+
+    if (all_ate == data->philo_num)
+    {
+       // pthread_mutex_lock(&(data->check_death_mutex));
+        data->dead_flag = 1;
+       // pthread_mutex_unlock(&(data->check_death_mutex));
+        return (1);
+    }
+    return (0);
+}
+
+int check_die(t_data *data)
+{
+    //long time;
+    int i;
+
+    i = 0;
+    while (i < data->philo_num)
+    {
+        //time = get_current_time();
+        if (get_current_time() - data->philos[i].last_eat > data->time_to_die)
+        {
+            print_action(&data->philos[i], DEAD);
+            pthread_mutex_lock(&(data->check_death_mutex));
+            data->dead_flag = 1; // Se marca que un filósofo ha muerto
+            pthread_mutex_unlock(&(data->check_death_mutex));
+            return (1); // Indica que un filósofo ha muerto
+        }
+        i++;
+    }
+    return (0);
+}
+
+void *death_monitor(void *arg)
+{
+    t_data *data;
+
+    data = (t_data *)arg;
+    while (1)
+    {
+        if (check_die(data) || check_all_ate(data))
+            break ;
+    }
+    return (arg);
 }

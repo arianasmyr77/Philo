@@ -13,6 +13,50 @@
 #include "philo.h"
 //the project after checking norminette does not work 
 
+
+void init_mutexes(t_data *data)
+{
+    int i;
+
+    //data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_num);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
+    pthread_mutex_init(&data->message, NULL);
+    pthread_mutex_init(&data->check_death_mutex, NULL);
+    pthread_mutex_init(&data->philo_can_eat, NULL);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_mutex_init(&data->forks[i], NULL);
+        i++;
+    }
+}
+
+void init_philosophers(t_data *data)
+{
+    int i;
+
+    data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        data->philos[i].data = data;
+        data->philos[i].id = i + 1;
+        data->philos[i].l_fork = i;
+        data->philos[i].r_fork = (i + 1) % data->philo_num;
+        data->philos[i].dead_flag = 0;
+        data->philos[i].times_eaten = 0;
+        data->philos[i].last_eat = get_current_time();
+        data->philos[i].start_time = get_current_time();
+        i++;
+    }
+}
+
+void init_data(t_data *data)
+{
+    init_mutexes(data);
+    init_philosophers(data);
+}
+/*
 void	init_data(t_data *data)
 {
 	int	i;
@@ -42,28 +86,9 @@ void	init_data(t_data *data)
 		data->philos[i].start_time = get_current_time();
 		i++;
 	}
-}
+}*/
 
-void	*death_monitor(void *arg)
-{
-	t_data	*data;
-	int	i;
-
-	data = (t_data *)arg;
-	while (1)
-	{
-		i = 0;
-		while (i < data->philo_num)
-		{
-			if (check_die(data, &data->philos[i]) || check_all_ate(data))
-				return (NULL);
-			i++;
-		}
-		usleep(1000);
-	}
-}
-
-void	create_and_join_threads(t_data *data)
+void create_and_join_threads(t_data *data)
 {
 	pthread_t	monitor_thread;
 	pthread_t	*threads;
@@ -91,16 +116,18 @@ void	free_data(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->philo_num)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&data->message);
-	pthread_mutex_destroy(&data->check_death_mutex);
-	pthread_mutex_destroy(&data->philo_can_eat);
-	free(data->forks);
-	free(data->philos);
-	free(data);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_mutex_destroy(&data->forks[i]);
+        i++;
+    }
+
+    pthread_mutex_destroy(&data->message);
+    pthread_mutex_destroy(&data->check_death_mutex);
+    pthread_mutex_destroy(&data->philo_can_eat);
+
+    free(data->forks);
+    free(data->philos);
+    free(data);
 }
