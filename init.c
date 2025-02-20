@@ -11,22 +11,20 @@
 /* ************************************************************************** */
 
 #include "philo.h"
-//the project after checking norminette does not work 
 
 void	init_data(t_data *data)
 {
 	int	i;
 
-	data->forks = (pthread_mutex_t *)malloc(sizeof(pthread_mutex_t) * data->philo_num);
+	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	pthread_mutex_init(&data->message, NULL);
 	pthread_mutex_init(&data->check_death_mutex, NULL);
 	pthread_mutex_init(&data->philo_can_eat, NULL);
 	pthread_mutex_init(&data->check_death_mutex, NULL);
-	i = 0;
-	while (i < data->philo_num)
+	i = -1;
+	while (++i < data->philo_num)
 	{
 		pthread_mutex_init(&data->forks[i], NULL);
-		i++;
 	}
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
 	i = 0;
@@ -47,7 +45,7 @@ void	init_data(t_data *data)
 void	*death_monitor(void *arg)
 {
 	t_data	*data;
-	int	i;
+	int		i;
 
 	data = (t_data *)arg;
 	while (1)
@@ -67,25 +65,60 @@ void	create_and_join_threads(t_data *data)
 {
 	pthread_t	monitor_thread;
 	pthread_t	*threads;
-	int		i;
+	int			i;
 
 	pthread_create(&monitor_thread, NULL, death_monitor, (void *)data);
-    i = 0;
+	i = 0;
 	threads = malloc(data->philo_num * sizeof(pthread_t));
+	//if (!threads)
+
 	while (i < data->philo_num)
 	{
 		pthread_create(&threads[i], NULL, routine, (void *)&data->philos[i]);
 		i++;
 	}
-	i = 0;
-	while (i < data->philo_num)
+	i = -1;
+	while (++i < data->philo_num)
 	{
-		pthread_join(threads[i], NULL);
-		i++;
+		if (pthread_join(threads[i], NULL))
+			printf("error");
 	}
 	pthread_join(monitor_thread, NULL);
-	//free(threads);
+	free(threads);
 }
+
+// void	create_and_join_threads(t_data *data)
+// {
+// 	pthread_t	monitor_thread;
+// 	pthread_t	*threads;
+
+// 	int			i;
+
+// 	i = -1;
+// 	while (++i < data->philo_num)
+// 	{
+// 		if ()
+// 	}
+// 	//pthread_create(&monitor_thread, NULL, death_monitor, (void *)data);
+// 	i = 0;
+// 	threads = malloc(data->philo_num * sizeof(pthread_t));
+// 	if (!threads)
+// 		return (1);
+
+// 	while (i < data->philo_num)
+// 	{
+// 		pthread_create(&threads[i], NULL, routine, (void *)&data->philos[i]);
+// 		i++;
+// 	}
+// 	i = -1;
+// 	while (++i < data->philo_num)
+// 	{
+// 		if (pthread_join(threads[i], NULL))
+// 			printf("error");
+// 	}
+// 	pthread_join(monitor_thread, NULL);
+// 	free(threads);
+// }
 
 void	free_data(t_data *data)
 {
