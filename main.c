@@ -60,8 +60,14 @@ t_data *parse_arguments(int argc, char **argv)
     return data;
 }
 
+void	ft_leaks(void)
+{//wici solongi??
+	system("leaks philo");	
+}
+
 int main(int argc, char **argv)
 {
+	//atexit(ft_leaks);
     t_data *data;
 
     data = parse_arguments(argc, argv);
@@ -75,7 +81,7 @@ int main(int argc, char **argv)
     init_data(data);
     create_and_join_threads(data);
     free_data(data);
-
+	//atexit(ft_leaks);
     return (0);
 }
 

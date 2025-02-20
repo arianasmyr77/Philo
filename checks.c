@@ -54,24 +54,24 @@ int check_die(t_data *data)
         {
             print_action(&data->philos[i], DEAD);
             pthread_mutex_lock(&(data->check_death_mutex));
-            data->dead_flag = 1; // Se marca que un filósofo ha muerto
+            data->dead_flag = 1;
             pthread_mutex_unlock(&(data->check_death_mutex));
-            return (1); // Indica que un filósofo ha muerto
+            return (1);
         }
         i++;
     }
     return (0);
 }
 
-void *death_monitor(void *arg)
-{
-    t_data *data;
+// void *death_monitor(void *arg)
+// {
+//     t_data *data;
 
-    data = (t_data *)arg;
-    while (1)
-    {
-        if (check_die(data) || check_all_ate(data))
-            break ;
-    }
-    return (arg);
-}
+//     data = (t_data *)arg;
+//     while (1)
+//     {
+//         if (check_die(data) || check_all_ate(data))
+//             break ;
+//     }
+//     return (arg);
+// }
