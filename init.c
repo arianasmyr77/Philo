@@ -12,128 +12,112 @@
 
 #include "philo.h"
 
-void	init_data(t_data *data)
-{
-	int	i;
 
-	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
-	pthread_mutex_init(&data->message, NULL);
-	pthread_mutex_init(&data->check_death_mutex, NULL);
-	pthread_mutex_init(&data->philo_can_eat, NULL);
-	pthread_mutex_init(&data->check_death_mutex, NULL);
+int init_mutexes(t_data *data)
+{
+    int i;
+
+    data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
+    if (!data->forks)
+    {
+        fprintf(stderr, "Error: Failed to allocate memory for forks\n");
+        return (1); // Indica fallo
+    }
+
+    pthread_mutex_init(&data->message, NULL);
+    pthread_mutex_init(&data->check_death_mutex, NULL);
+    pthread_mutex_init(&data->philo_can_eat, NULL);
+
+    i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_mutex_init(&data->forks[i], NULL);
+        i++;
+    }
+
+    return (0); // Indica éxito
+}
+
+int init_philos(t_data *data)
+{
+    int i;
+
+    data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
+    if (!data->philos)
+    {
+        printf("Error: Failed to allocate memory for philosophers\n");
+        free(data->forks); // Liberamos forks antes de salir
+        return (1); // Indica fallo
+    }
+    i = 0;
+    while (i < data->philo_num)
+    {
+        data->philos[i].data = data;
+        data->philos[i].id = i + 1;
+        data->philos[i].l_fork = i;
+        data->philos[i].r_fork = (i + 1) % data->philo_num;
+        data->philos[i].dead_flag = 0;
+        data->philos[i].times_eaten = 0;
+        data->philos[i].last_eat = get_current_time();
+        data->philos[i].start_time = get_current_time();
+        i++;
+    }
+    return (0); // Indica éxito
+}
+
+int init_data(t_data *data)
+{
+    if (init_mutexes(data) != 0)
+        return (1);
+    if (init_philos(data) != 0)
+    {
+        free(data->forks); // Liberamos forks si init_philos falla
+        return (1);
+    }
+    return (0);
+}
+
+int init_threads(t_data *data)
+{
+	pthread_t 	monitor_thread;
+	int 		i;
+
+	if (pthread_create(&monitor_thread, NULL, death_monitor, (void *)data))
+		return (printf("Failed to create monitor thread\n"), 1);
 	i = -1;
 	while (++i < data->philo_num)
 	{
-		pthread_mutex_init(&data->forks[i], NULL);
-	}
-	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
-	i = 0;
-	while (i < data->philo_num)
-	{
-		data->philos[i].data = data;
-		data->philos[i].id = i + 1;
-		data->philos[i].l_fork = i;
-		data->philos[i].r_fork = (i + 1) % data->philo_num;
-		data->philos[i].dead_flag = 0;
-		data->philos[i].times_eaten = 0;
-		data->philos[i].last_eat = get_current_time();
-		data->philos[i].start_time = get_current_time();
-		i++;
-	}
-}
-
-void	*death_monitor(void *arg)
-{
-	t_data	*data;
-	int		i;
-
-	data = (t_data *)arg;
-	while (1)
-	{
-		i = 0;
-		while (i < data->philo_num)
-		{
-			if (check_die(data) || check_all_ate(data))
-				return (NULL);
-			i++;
-		}
-		usleep(1000);
-	}
-}
-
-void	create_and_join_threads(t_data *data)
-{
-	pthread_t	monitor_thread;
-	pthread_t	*threads;
-	int			i;
-
-	pthread_create(&monitor_thread, NULL, death_monitor, (void *)data);
-	i = 0;
-	threads = malloc(data->philo_num * sizeof(pthread_t));
-	//if (!threads)
-
-	while (i < data->philo_num)
-	{
-		pthread_create(&threads[i], NULL, routine, (void *)&data->philos[i]);
-		i++;
+		if (pthread_create(&data->philos[i].thread, NULL, routine, 
+				&data->philos[i]))
+			return (printf("Failed to create philosopher thread %d\n", i + 1), 1);
 	}
 	i = -1;
+	if (pthread_join(monitor_thread, NULL))
+		return (printf("Error: Failed to join monitor thread\n"), 1);
 	while (++i < data->philo_num)
 	{
-		if (pthread_join(threads[i], NULL))
-			printf("error");
+		if (pthread_join(data->philos[i].thread, NULL))
+			return (printf("Error: Failed to join philosopher thread %d\n", i + 1), 1);
 	}
-	pthread_join(monitor_thread, NULL);
-	free(threads);
+	return (0);
 }
 
-// void	create_and_join_threads(t_data *data)
-// {
-// 	pthread_t	monitor_thread;
-// 	pthread_t	*threads;
-
-// 	int			i;
-
-// 	i = -1;
-// 	while (++i < data->philo_num)
-// 	{
-// 		if ()
-// 	}
-// 	//pthread_create(&monitor_thread, NULL, death_monitor, (void *)data);
-// 	i = 0;
-// 	threads = malloc(data->philo_num * sizeof(pthread_t));
-// 	if (!threads)
-// 		return (1);
-
-// 	while (i < data->philo_num)
-// 	{
-// 		pthread_create(&threads[i], NULL, routine, (void *)&data->philos[i]);
-// 		i++;
-// 	}
-// 	i = -1;
-// 	while (++i < data->philo_num)
-// 	{
-// 		if (pthread_join(threads[i], NULL))
-// 			printf("error");
-// 	}
-// 	pthread_join(monitor_thread, NULL);
-// 	free(threads);
-// }
 
 void	free_data(t_data *data)
 {
 	int	i;
 
-	i = 0;
-	while (i < data->philo_num)
-	{
-		pthread_mutex_destroy(&data->forks[i]);
-		i++;
-	}
-	pthread_mutex_destroy(&data->message);
-	pthread_mutex_destroy(&data->check_death_mutex);
-	pthread_mutex_destroy(&data->philo_can_eat);
-	free(data->forks);
-	free(data->philos);
-	free(data);
+    i = 0;
+    while (i < data->philo_num)
+    {
+        pthread_mutex_destroy(&data->forks[i]);
+        i++;
+    }
+    pthread_mutex_destroy(&data->message);
+    pthread_mutex_destroy(&data->check_death_mutex);
+    pthread_mutex_destroy(&data->philo_can_eat);
+
+    free(data->forks);
+    free(data->philos);
+    free(data);
 }

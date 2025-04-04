@@ -67,5 +67,23 @@ void	print_action(t_philo *philo, const char *action)
 	{
 		printf("%ld ms %d %s\n", time, philo->id, action);
 	}
-	pthread_mutex_unlock(&data->message);
+    pthread_mutex_unlock(&data->message);
+}
+
+int	ft_isdigit(char *c)
+{
+	int	i;
+
+	i = 0;
+	if (*(c + 1) == 0 && *c == '0')
+		return (0);
+	while (c[i])
+	{
+		if ((c[i] < '0' || c[i] > '9') && c[i] != '+')
+			return (0);
+		i++;
+	}
+	if (i > 9)
+		return (0);
+	return (1);
 }

@@ -20,7 +20,7 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-# define Take_FORK "has taken a fork"
+# define TAKE_FORK "has taken a fork"
 # define EAT "is eating"
 # define SLEEP "is sleeping"
 # define THINK "is thinking"
@@ -58,9 +58,9 @@ typedef struct s_data
 }	t_data;
 
 //init.c
-void	init_data(t_data *data);
-void	create_and_join_threads(t_data *data);
-void	free_data(t_data *data);
+int   init_data(t_data *data);
+int   init_threads(t_data *data);
+void    free_data(t_data *data);
 
 //actions.c
 void	*routine(void *arg);
