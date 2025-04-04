@@ -62,7 +62,7 @@ int init_philos(t_data *data)
         data->philos[i].start_time = get_current_time();
         i++;
     }
-    return (0); // Indica éxito
+    return (0);
 }
 
 int init_data(t_data *data)
@@ -71,7 +71,7 @@ int init_data(t_data *data)
         return (1);
     if (init_philos(data) != 0)
     {
-        free(data->forks); // Liberamos forks si init_philos falla
+        free(data->forks);
         return (1);
     }
     return (0);

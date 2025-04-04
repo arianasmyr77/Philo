@@ -63,15 +63,15 @@ int	check_die(t_data *data)
 	return (0);
 }
 
-// void *death_monitor(void *arg)
-// {
-//     t_data *data;
+void *death_monitor(void *arg)
+{
+    t_data *data;
 
-//     data = (t_data *)arg;
-//     while (1)
-//     {
-//         if (check_die(data) || check_all_ate(data))
-//             break ;
-//     }
-//     return (arg);
-// }
+    data = (t_data *)arg;
+    while (1)
+    {
+        if (check_die(data) || check_all_ate(data))
+            break ;
+    }
+    return (arg);
+}
