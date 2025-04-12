@@ -67,7 +67,7 @@ void	print_action(t_philo *philo, const char *action)
 	{
 		printf("%ld ms %d %s\n", time, philo->id, action);
 	}
-    pthread_mutex_unlock(&data->message);
+	pthread_mutex_unlock(&data->message);
 }
 
 int	ft_isdigit(char *c)

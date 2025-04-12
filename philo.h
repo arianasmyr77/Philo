@@ -10,7 +10,6 @@
 /*                                                                            */
 /* ************************************************************************** */
 
-
 #ifndef PHILO_H
 # define PHILO_H
 
@@ -58,9 +57,9 @@ typedef struct s_data
 }	t_data;
 
 //init.c
-int   init_data(t_data *data);
-int   init_threads(t_data *data);
-void    free_data(t_data *data);
+int		init_data(t_data *data);
+int		init_threads(t_data *data);
+void	free_data(t_data *data);
 
 //actions.c
 void	*routine(void *arg);
