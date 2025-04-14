@@ -28,6 +28,7 @@ int	check_all_ate(t_data *data)
 {
 	int	i;
 	int	all_ate;
+	int	times_eaten;
 
 	i = 0;
 	all_ate = 0;
@@ -35,14 +36,18 @@ int	check_all_ate(t_data *data)
 		return (0);
 	while (i < data->philo_num)
 	{
-		if (data->philos[i].times_eaten >= data->num_times_to_eat)
+		pthread_mutex_lock(&(data->philos[i].eat_mutex));
+		times_eaten = data->philos[i].times_eaten;
+		pthread_mutex_unlock(&(data->philos[i].eat_mutex));
+		if (times_eaten >= data->num_times_to_eat)
 			all_ate++;
 		i++;
 	}
 	if (all_ate == data->philo_num)
 	{
-
+		pthread_mutex_lock(&(data->check_death_mutex));
 		data->dead_flag = 1;
+		pthread_mutex_unlock(&(data->check_death_mutex));
 		return (1);
 	}
 	return (0);
@@ -50,12 +55,16 @@ int	check_all_ate(t_data *data)
 
 int	check_die(t_data *data)
 {
-	int	i;
+	int		i;
+	long	last_eat;
 
 	i = 0;
 	while (i < data->philo_num)
 	{
-		if (get_current_time() - data->philos[i].last_eat > data->time_to_die)
+		pthread_mutex_lock(&(data->philos[i].eat_mutex));
+		last_eat = data->philos[i].last_eat;
+		pthread_mutex_unlock(&(data->philos[i].eat_mutex));
+		if (get_current_time() - last_eat > data->time_to_die)
 		{
 			print_action(&data->philos[i], DEAD);
 			pthread_mutex_lock(&(data->check_death_mutex));

@@ -57,13 +57,17 @@ void	print_action(t_philo *philo, const char *action)
 {
 	t_data	*data;
 	long	time;
+	int		dead_flag;
 
 	data = philo->data;
 	if (check_all_ate(data))
 		return ;
+	pthread_mutex_lock(&philo->data->check_death_mutex);
+	dead_flag = data->dead_flag;
+	pthread_mutex_unlock(&philo->data->check_death_mutex);
 	pthread_mutex_lock(&data->message);
 	time = get_current_time() - data->start_time;
-	if (data->dead_flag != 1)
+	if (dead_flag != 1)
 	{
 		printf("%ld ms %d %s\n", time, philo->id, action);
 	}

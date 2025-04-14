@@ -24,7 +24,6 @@ int	init_mutexes(t_data *data)
 	}
 	pthread_mutex_init(&data->message, NULL);
 	pthread_mutex_init(&data->check_death_mutex, NULL);
-	pthread_mutex_init(&data->philo_can_eat, NULL);
 	i = 0;
 	while (i < data->philo_num)
 	{
@@ -56,7 +55,7 @@ int	init_philos(t_data *data)
 		data->philos[i].times_eaten = 0;
 		data->philos[i].last_eat = get_current_time();
 		data->philos[i].start_time = get_current_time();
-		//pthread_mutex_init(&data->philos[i].eat_mutex, NULL);
+		pthread_mutex_init(&data->philos[i].eat_mutex, NULL);
 		i++;
 	}
 	return (0);
@@ -79,12 +78,17 @@ int	init_threads(t_data *data)
 	pthread_t	monitor_thread;
 	int			i;
 
-	if (pthread_create(&monitor_thread, NULL, death_monitor, (void *)data))
+	// if (data->philo_num == 1)
+	// {
+	// 	handle_case_one(&data->philos[0]);
+	// 	return (0);
+	// }
+	if (pthread_create(&monitor_thread, NULL, &death_monitor, (void *)data))
 		return (printf("Failed to create monitor thread\n"), 1);
 	i = -1;
 	while (++i < data->philo_num)
 	{
-		if (pthread_create(&data->philos[i].thread, NULL, routine,
+		if (pthread_create(&data->philos[i].thread, NULL, &routine,
 				&data->philos[i]))
 			return (printf("Failed to create philos thread %d\n", i + 1), 1);
 	}
@@ -107,12 +111,11 @@ void	free_data(t_data *data)
 	while (i < data->philo_num)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
-		//pthread_mutex_destroy(&data->philos[i].eat_mutex);
+		pthread_mutex_destroy(&data->philos[i].eat_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->message);
 	pthread_mutex_destroy(&data->check_death_mutex);
-	pthread_mutex_destroy(&data->philo_can_eat);
 	free(data->forks);
 	free(data->philos);
 	free(data);
