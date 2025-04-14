@@ -55,19 +55,17 @@ void	sleep_time(t_philo *philo)
 void	*routine(void *arg)
 {
 	t_philo	*philo;
-	t_data	*data;
 
 	philo = (t_philo *)arg;
-	data = philo->data;
 	if (philo->id % 2 == 0)
 	{
 		ft_usleep(1);
 	}
-	while (data->dead_flag != 1)
+	while (!check_finished(philo))
 	{
 		dinner(philo);
 		sleep_time(philo);
 		think_time(philo);
 	}
-	return (arg);
+	return (0);
 }

@@ -12,6 +12,18 @@
 
 #include "philo.h"
 
+int	check_finished(t_philo *philo)
+{
+	pthread_mutex_lock(&philo->data->check_death_mutex);
+	if (philo->data->dead_flag != 0)
+	{
+		pthread_mutex_unlock(&philo->data->check_death_mutex);
+		return (1);
+	}
+	pthread_mutex_unlock(&philo->data->check_death_mutex);
+	return (0);
+}
+
 int	check_all_ate(t_data *data)
 {
 	int	i;
@@ -29,6 +41,7 @@ int	check_all_ate(t_data *data)
 	}
 	if (all_ate == data->philo_num)
 	{
+
 		data->dead_flag = 1;
 		return (1);
 	}
@@ -63,7 +76,63 @@ void	*death_monitor(void *arg)
 	while (1)
 	{
 		if (check_die(data) || check_all_ate(data))
+		{
 			break ;
+		}
 	}
 	return (arg);
 }
+
+/*
+int	check_all_ate(t_data *data)
+{
+	int	i;
+	int	all_ate;
+
+	i = 0;
+	all_ate = 0;
+	if (data->num_times_to_eat == -1)
+		return (0);
+	while (i < data->philo_num)
+	{
+		pthread_mutex_lock(&data->philos[i].eat_mutex);
+		if (data->philos[i].times_eaten >= data->num_times_to_eat)
+			all_ate++;
+		pthread_mutex_unlock(&data->philos[i].eat_mutex);
+		i++;
+	}
+	if (all_ate == data->philo_num)
+	{
+		pthread_mutex_lock(&data->check_death_mutex);
+		data->dead_flag = 1;
+		pthread_mutex_unlock(&data->check_death_mutex);
+		return (1);
+	}
+	return (0);
+}
+
+int	check_die(t_data *data)
+{
+	int	i;
+	long	time_since_last_eat;
+
+	i = 0;
+	while (i < data->philo_num)
+	{
+		pthread_mutex_lock(&data->philos[i].eat_mutex);
+		time_since_last_eat = get_current_time() - data->philos[i].last_eat;
+		pthread_mutex_unlock(&data->philos[i].eat_mutex);
+
+		if (time_since_last_eat > data->time_to_die)
+		{
+			print_action(&data->philos[i], DEAD);
+			pthread_mutex_lock(&(data->check_death_mutex));
+			data->dead_flag = 1;
+			pthread_mutex_unlock(&(data->check_death_mutex));
+			return (1);
+		}
+		i++;
+	}
+	return (0);
+}
+*/

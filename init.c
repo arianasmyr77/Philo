@@ -56,6 +56,7 @@ int	init_philos(t_data *data)
 		data->philos[i].times_eaten = 0;
 		data->philos[i].last_eat = get_current_time();
 		data->philos[i].start_time = get_current_time();
+		pthread_mutex_init(&data->philos[i].eat_mutex, NULL);
 		i++;
 	}
 	return (0);
@@ -106,6 +107,7 @@ void	free_data(t_data *data)
 	while (i < data->philo_num)
 	{
 		pthread_mutex_destroy(&data->forks[i]);
+		pthread_mutex_destroy(&data->philos[i].eat_mutex);
 		i++;
 	}
 	pthread_mutex_destroy(&data->message);
