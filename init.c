@@ -19,7 +19,7 @@ int	init_mutexes(t_data *data)
 	data->forks = malloc(sizeof(pthread_mutex_t) * data->philo_num);
 	if (!data->forks)
 	{
-		fprintf(stderr, "Error: Failed to allocate memory for forks\n");
+		printf("Error: Failed to allocate memory for forks\n");
 		return (1);
 	}
 	pthread_mutex_init(&data->message, NULL);
@@ -40,7 +40,7 @@ int	init_philos(t_data *data)
 	data->philos = (t_philo *)malloc(sizeof(t_philo) * data->philo_num);
 	if (!data->philos)
 	{
-		printf("Error: Failed to allocate memory for philosophers\n");
+		printf("Failed to allocate memory for philosophers\n");
 		free(data->forks);
 		return (1);
 	}
@@ -78,11 +78,6 @@ int	init_threads(t_data *data)
 	pthread_t	monitor_thread;
 	int			i;
 
-	// if (data->philo_num == 1)
-	// {
-	// 	handle_case_one(&data->philos[0]);
-	// 	return (0);
-	// }
 	if (pthread_create(&monitor_thread, NULL, &death_monitor, (void *)data))
 		return (printf("Failed to create monitor thread\n"), 1);
 	i = -1;

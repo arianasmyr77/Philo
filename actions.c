@@ -24,12 +24,6 @@ void	dinner(t_philo *philo)
 	data = philo->data;
 	pthread_mutex_lock(&data->forks[philo->l_fork]);
 	print_action(philo, TAKE_FORK);
-	// if (data->philo_num == 1)
-	// {
-	// 	ft_usleep(data->time_to_die);
-	// 	print_action(philo, DEAD);
-	// 	return ;
-	// }
 	pthread_mutex_lock(&data->forks[philo->r_fork]);
 	print_action(philo, TAKE_FORK);
 	print_action(philo, EAT);
@@ -51,7 +45,6 @@ void	sleep_time(t_philo *philo)
 	ft_usleep(data->time_to_sleep);
 }
 
-
 void	*routine(void *arg)
 {
 	t_philo	*philo;
@@ -65,16 +58,8 @@ void	*routine(void *arg)
 	{
 		print_action(philo, TAKE_FORK);
 		ft_usleep(philo->data->time_to_die);
-		// print_action(philo, DEAD);
 		return (0);
 	}
-	// if (philo->data->philo_num == 1)
-	// {
-	// 	handle_case_one(philo);
-	// 	//free_all(data);
-	// 	return (0);
-	// }
-
 	while (!check_finished(philo))
 	{
 		dinner(philo);

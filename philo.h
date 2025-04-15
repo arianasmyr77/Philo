@@ -76,5 +76,5 @@ int		ft_usleep(size_t millisec);
 void	print_action(t_philo *philo, const char *action);
 void	*monitor_routine(void *arg);
 void	*death_monitor(void *arg);
-void	handle_case_one(t_philo *philo);
+int		ft_isdigit(char *c);
 #endif

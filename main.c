@@ -61,13 +61,6 @@ static t_data	*parse_arguments(int argc, char **argv)
 	return (data);
 }
 
-// void	handle_case_one(t_philo *philo)
-// {
-// 	print_action(philo, TAKE_FORK);
-// 	ft_usleep(philo->data->time_to_die);
-// 	print_action(philo, DEAD);
-// }
-
 int	main(int argc, char **argv)
 {
 	t_data	*data;
