@@ -13,22 +13,22 @@
 #include "philo.h"
 #include <stdlib.h>
 
-int	check_arguments(t_data *data)
+int	check_arguments(char **argv)
 {
-	if (data->philo_num <= 0 || data->philo_num > 200)
+	if (!ft_isdigit(argv[1]))
 	{
-		printf("The number of philosophers must be between 1 and 200.\n");
+		printf("Incorrect Value for number of philos\n");
 		return (1);
 	}
-	if (data->time_to_die < 60 || data->time_to_eat < 60
-		|| data->time_to_sleep < 60)
+	if (!ft_isdigit(argv[2]) || !ft_isdigit(argv[3]) || !ft_isdigit(argv[4]))
 	{
-		printf("Values(to die, to eat, to sleep) must be at least 60ms.\n");
+		printf("Incorrect time values\n");
+		printf("check Time to die , eat and sleep then try again please\n");
 		return (1);
 	}
-	if (data->num_times_to_eat < -1)
+	if (argv[5] && !ft_isdigit(argv[5]))
 	{
-		printf("The number of times to eat can't be negative.\n");
+		printf("Incorrect value for times to eat\n");
 		return (1);
 	}
 	return (0);
@@ -68,11 +68,8 @@ int	main(int argc, char **argv)
 	data = parse_arguments(argc, argv);
 	if (!data)
 		return (1);
-	if (check_arguments(data))
-	{
-		free(data);
+	if (check_arguments(argv))
 		return (1);
-	}
 	if (init_data(data) != 0)
 	{
 		free(data);
