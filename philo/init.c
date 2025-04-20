@@ -79,21 +79,21 @@ int	init_threads(t_data *data)
 	int			i;
 
 	if (pthread_create(&monitor_thread, NULL, &death_monitor, (void *)data))
-		return (printf("Failed to create monitor thread\n"), 1);
+		return (1);
 	i = -1;
 	while (++i < data->philo_num)
 	{
 		if (pthread_create(&data->philos[i].thread, NULL, &routine,
 				&data->philos[i]))
-			return (printf("Failed to create philos thread %d\n", i + 1), 1);
+			return (1);
 	}
 	i = -1;
 	if (pthread_join(monitor_thread, NULL))
-		return (printf("Error: Failed to join monitor thread\n"), 1);
+		return (1);
 	while (++i < data->philo_num)
 	{
 		if (pthread_join(data->philos[i].thread, NULL))
-			return (printf("Failed to join philosthread %d\n", i + 1), 1);
+			return (1);
 	}
 	return (0);
 }

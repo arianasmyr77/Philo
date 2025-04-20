@@ -43,7 +43,7 @@ static t_data	*parse_arguments(int argc, char **argv)
 		return (NULL);
 	if (argc < 4 || argc > 6)
 	{
-		printf("Incorrect number of arguments");
+		printf("Incorrect number of arguments\n");
 		free (data);
 		return (NULL);
 	}

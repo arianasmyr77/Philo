@@ -69,7 +69,7 @@ void	print_action(t_philo *philo, const char *action)
 	time = get_current_time() - data->start_time;
 	if (dead_flag != 1)
 	{
-		printf("%ld ms %d %s\n", time, philo->id, action);
+		printf("%-5ld ms %d %s\n", time, philo->id, action);
 	}
 	pthread_mutex_unlock(&data->message);
 }
