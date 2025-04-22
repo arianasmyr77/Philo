@@ -19,17 +19,18 @@
 # include <stdlib.h>
 # include <pthread.h>
 
-// # define TAKE_FORK "\033[1;35mhas taken a fork 🍴\033[0m"
-// # define EAT       "\033[1;32mis eating 🍝\033[0m"
-// # define SLEEP     "\033[1;34mis sleeping 💤\033[0m"
-// # define THINK     "\033[1;33mis thinking 💭\033[0m"
-// # define DEAD      "\033[1;31mdied 🪦\033[0m"
+# define TAKE_FORK "\033[1;35mhas taken a fork 🍴\033[0m"
+// # define EAT       "\033[1;33mis eating 🍝\033[0m"
+# define EAT       "\033[1;32mis eating 🍝\033[0m"
+# define SLEEP     "\033[1;34mis sleeping 💤\033[0m"
+# define THINK     "\033[1;38;5;208mis thinking 💭\033[0m"
+# define DEAD      "\033[1;31mdied 🪦\033[0m"
 
-# define TAKE_FORK "has taken a fork"
-# define EAT       "is eating"
-# define SLEEP     "is sleeping"
-# define THINK     "is thinking"
-# define DEAD      "died"
+// # define TAKE_FORK "has taken a fork"
+// # define EAT       "is eating"
+// # define SLEEP     "is sleeping"
+// # define THINK     "is thinking"
+// # define DEAD      "died"
 
 typedef struct s_philo
 {
@@ -74,12 +75,12 @@ void	*routine(void *arg);
 int		check_finished(t_philo *philo);
 int		check_die(t_data *data);
 int		check_all_ate(t_data *data);
+void	*death_monitor(void *arg);
 
 //utils.c
 long	get_current_time(void);
 int		ft_atoi(const char *str);
 int		ft_usleep(size_t millisec);
 void	print_action(t_philo *philo, const char *action);
-void	*death_monitor(void *arg);
 int		ft_isdigit(char *c);
 #endif

@@ -41,7 +41,7 @@ static t_data	*parse_arguments(int argc, char **argv)
 	data = malloc(sizeof(t_data));
 	if (!data)
 		return (NULL);
-	if (argc < 4 || argc > 6)
+	if (argc < 5 || argc > 6)
 	{
 		printf("Incorrect number of arguments\n");
 		free (data);
